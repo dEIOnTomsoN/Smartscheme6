@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Smart Scheme</title>
+    <link rel="stylesheet" href="/stylesheets/s2.css">
+</head>
+<body>
+    <header>
+        <h1><span>SMART</span> SCHEME</h1>
+        <nav>
+            <a href="/profile-view">
+                <button>Profile</button>
+            </a>
+            <a href="/logout">
+                <button>Sign Out</button>
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Update the scholarships section in profile.hbs -->
+        <div class="scholarships-container">
+            <h2>Eligible Scholarships</h2>
+            {{#if scholarships.length}}
+                <div class="scholarships-list">
+                    {{#each scholarships}}
+                        <div class="scholarship-box">
+                            <h3>{{this.name}}</h3>
+                            <p><strong>Deadline:</strong> {{this.deadline}}</p>
+                            {{#if (isPast this.deadline)}}
+                                <p style="color: red;"><strong>Status:</strong> Closed</p>
+                            {{else}}
+                                <p style="color: green;"><strong>Status:</strong> Open</p>
+                            {{/if}}
+                        </div>
+                    {{/each}}
+                </div>
+            {{else}}
+                <p>No scholarships available based on your profile.</p>
+            {{/if}}
+        </div>
+    </main>
+</body>
+</html>

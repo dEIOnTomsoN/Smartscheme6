@@ -1,0 +1,156 @@
+/* General Styles */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    color: #333;
+}
+
+/* Header */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 25px;
+    background-color: #512da8;
+    color: white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2em;
+    font-weight: 600;
+}
+
+header nav button {
+    background: #5c6bc0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+header nav button:hover {
+    background: #4527a0;
+}
+
+/* Steps Section */
+.steps h2 {
+    font-size: 2.5em;
+    color: #512da8;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+.steps-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    align-items: center;
+    max-width: 80%;
+    margin: 30px auto;
+}
+
+.step-card {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 300px;
+}
+
+.step-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.step-card img {
+    height: 60px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.step-card img:hover {
+    transform: scale(1.1);
+}
+
+.step-card h3 {
+    font-size: 1.3em;
+    color: #512da8;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.step-card p {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.4;
+}
+
+/* FAQ Section */
+.faq-section {
+    margin: 40px 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.faq-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.faq-header h2 {
+    font-size: 2em;
+    color: #512da8;
+    font-weight: 700;
+}
+
+.faq-header p {
+    font-size: 1em;
+    color: #555;
+}
+
+.faq-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.faq-content ul li {
+    padding: 12px 20px;
+    border-bottom: 1px solid #eaeaea;
+    font-size: 1em;
+    color: #444;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.faq-content ul li:hover {
+    background-color: #512da8;
+    color: #fff;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin: 30px;
+    font-size: 0.85em;
+    color: #bbb;
+    background-color: #512da8;
+    padding: 15px;
+    color: #f1f1f1;
+    border-radius: 10px;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}

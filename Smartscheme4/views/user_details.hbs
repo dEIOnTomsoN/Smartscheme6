@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details Form - Smart Scheme</title>
+    <link rel="stylesheet" href="/stylesheets/usr.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script>
+        function toggleStudentDetails() {
+            var studentStatus = document.getElementById("is_student").value;
+            var studentDetails = document.getElementById("student_details");
+
+            if (studentStatus === "Yes") {
+                studentDetails.style.display = "block";
+            } else {
+                studentDetails.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1><span>SMART</span> SCHEME</h1>
+        <nav>
+            <a href="/profile">
+                <button>Back to Profile</button>
+            </a>
+            <a href="/logout">
+                <button>Sign Out</button>
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <form action="/submit-user-details" method="post">
+            <!-- Personal Details Section -->
+            <fieldset>
+                <legend>Personal Details</legend>
+                <div class="row">
+                    <div class="column">
+                        <label>First Name *</label>
+                        <input type="text" name="first_name" value="{{user.first_name}}" required>
+                    </div>
+                    <div class="column">
+                        <label>Last Name *</label>
+                        <input type="text" name="last_name" value="{{user.last_name}}" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <label>Gender *</label>
+                        <select name="gender" required>
+                            <option value="Male" {{#if user.isMale}}selected{{/if}}>Male</option>
+                            <option value="Female" {{#if user.isFemale}}selected{{/if}}>Female</option>
+                        </select>
+                    </div>
+                    <div class="column">
+                        <label>Date of Birth *</label>
+                        <input type="date" name="date_of_birth" value="{{user.date_of_birth}}" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <label>Category *</label>
+                        <select name="category" required>
+                            <option value="SC" {{#if user.isSC}}selected{{/if}}>SC</option>
+                            <option value="ST" {{#if user.isST}}selected{{/if}}>ST</option>
+                            <option value="OBC" {{#if user.isOBC}}selected{{/if}}>OBC</option>
+                            <option value="Minority" {{#if user.isMinority}}selected{{/if}}>Minority</option>
+                            <option value="General" {{#if user.isGeneral}}selected{{/if}}>General</option>
+                        </select>
+                    </div>
+                    <div class="column">
+                        <label>Domicile State *</label>
+                        <select name="domicile_state" id="domicile_state" required>
+                            <option value="" disabled selected>Select State</option>
+                            <option value="Kerala" {{#if user.isKerala}}selected{{/if}}>Kerala</option>
+                            <!-- Add more states as needed -->
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <label>Religion *</label>
+                        <select name="religion" required>
+                            <option value="" disabled selected>Select Religion</option>
+                            <option value="Hindu" {{#if user.isHindu}}selected{{/if}}>Hindu</option>
+                            <option value="Muslim" {{#if user.isMuslim}}selected{{/if}}>Muslim</option>
+                            <option value="Christian" {{#if user.isChristian}}selected{{/if}}>Christian</option>
+                            <option value="Sikh" {{#if user.isSikh}}selected{{/if}}>Sikh</option>
+                            <option value="Buddhist" {{#if user.isBuddhist}}selected{{/if}}>Buddhist</option>
+                            <option value="Jain" {{#if user.isJain}}selected{{/if}}>Jain</option>
+                            <option value="Parsi" {{#if user.isParsi}}selected{{/if}}>Parsi</option>
+                            <option value="Other" {{#if user.isOtherReligion}}selected{{/if}}>Other</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Contact Details Section -->
+            <fieldset>
+                <legend>Contact Details</legend>
+                <div class="row">
+                    <div class="column">
+                        <label>Address *</label>
+                        <textarea name="address" required>{{user.address}}</textarea>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="column">
+                        <label>Email *</label>
+                        <input type="email" name="email" value="{{user.email}}" readonly>
+                    </div>
+                    <div class="column">
+                        <label>Phone Number *</label>
+                        <input type="text" name="phone_number" value="{{user.phone_number}}" required>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Student Status -->
+            <fieldset>
+                <legend>Education Status</legend>
+                <div class="row">
+                    <div class="column">
+                        <label>Are you a student? *</label>
+                        <select name="is_student" id="is_student" onchange="toggleStudentDetails()" required>
+                            <option value="" disabled selected>Select Option</option>
+                            <option value="Yes" {{#if user.isStudentYes}}selected{{/if}}>Yes</option>
+                            <option value="No" {{#if user.isStudentNo}}selected{{/if}}>No</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Education Details (Hidden initially) -->
+            <fieldset id="student_details" style="display: {{#if user.isStudentYes}}block{{else}}none{{/if}};">
+                <legend>Education Details</legend>
+                <div class="row">
+                    <div class="column">
+                        <label>Course Type *</label>
+                        <select name="course_type" required>
+                            <option value="" disabled selected>Select Course Type</option>
+                            {{#each courseTypes}}
+                                <option value="{{this}}" {{#if (lookup ../user.courseTypeFlags this)}}selected{{/if}}>{{this}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <label>Admission Type *</label>
+                        <select name="admission_type" required>
+                            <option value="" disabled selected>Select Admission Type</option>
+                            <option value="merit" {{#if user.isMerit}}selected{{/if}}>Merit</option>
+                            <option value="reservation" {{#if user.isReservation}}selected{{/if}}>Reservation</option>
+                            <option value="management" {{#if user.isManagement}}selected{{/if}}>Management</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <label>Academic Year</label>
+                        <input type="text" name="academic_year" value="{{user.academic_year}}">
+                    </div>
+                    <div class="column">
+                        <label>Percentage / Marks</label>
+                        <input type="number" name="percentage_or_marks" value="{{user.percentage_or_marks}}" step="0.01">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <label>Attendance Percentage</label>
+                        <input type="number" name="attendance_percentage" value="{{user.attendance_percentage}}" step="0.01">
+                    </div>
+                    <div class="column">
+                        <label>Qualification Exam Score</label>
+                        <input type="number" name="qualification_exam_score" value="{{user.qualification_exam_score}}" step="0.01">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <label>Institute Type</label>
+                        <select name="institute_type">
+                            <option value="" disabled selected>Select Institute Type</option>
+                            <option value="gov" {{#if user.isGovInstitute}}selected{{/if}}>Government</option>
+                            <option value="gov_aided" {{#if user.isGovAidedInstitute}}selected{{/if}}>Government Aided</option>
+                            <option value="self_finance" {{#if user.isSelfFinanceInstitute}}selected{{/if}}>Self Finance</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Family & Financial Details -->
+            <fieldset>
+                <legend>Family & Financial Details</legend>
+                <div class="row">
+                    <div class="column">
+                        <label>Annual Income *</label>
+                        <input type="number" name="annual_income" value="{{user.annual_income}}" step="10000" required>
+                    </div>
+                    <div class="column">
+                        <label>Previously Received Scholarship? *</label>
+                        <select name="previous_scholarship" required>
+                            <option value="" disabled selected>Select Option</option>
+                            <option value="1" {{#if user.previousScholarshipYes}}selected{{/if}}>Yes</option>
+                            <option value="0" {{#if user.previousScholarshipNo}}selected{{/if}}>No</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="column">
+                        <label>Family Details (If Female & Single Girl Child)</label>
+                        <select name="single_girl_child">
+                            <option value="" disabled selected>Select Option</option>
+                            <option value="1" {{#if user.singleGirlChildYes}}selected{{/if}}>Yes</option>
+                            <option value="0" {{#if user.singleGirlChildNo}}selected{{/if}}>No</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Submit Button -->
+            <div class="row">
+                <div class="column">
+                    <button type="submit">Update Profile</button>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        $(document).ready(function() {
+            $('#domicile_state').select2({
+                placeholder: "Select State",
+                allowClear: true
+            });
+        });
+    </script>
+</body>
+</html>
