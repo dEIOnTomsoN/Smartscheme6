@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scholarship Search</title>
     <style>
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -14,18 +15,42 @@
         }
 
         header {
-            background:#512da8;
+            background: #512da8;
             color: white;
             padding: 15px;
             text-align: center;
             font-size: 24px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 16px;
+            border: 1px solid white;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        header a:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
 
         main {
             display: flex;
             padding: 20px;
+            gap: 20px;
         }
 
+        /* Sidebar Styles */
         .sidebar {
             width: 300px;
             background: white;
@@ -36,12 +61,15 @@
 
         .sidebar h3 {
             margin-top: 0;
-            color:#512da8;
+            color: #512da8;
+            font-size: 20px;
+            margin-bottom: 20px;
         }
 
         .filter-list {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
 
         .filter-list li {
@@ -52,13 +80,26 @@
             flex-direction: column;
         }
 
-        select, input {
+        .filter-list label {
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .filter-list select,
+        .filter-list input {
             width: 100%;
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 4px;
             background-color: #fff;
             font-size: 14px;
+            color: #333;
+        }
+
+        .filter-list select:focus,
+        .filter-list input:focus {
+            border-color: #512da8;
+            outline: none;
         }
 
         button {
@@ -69,8 +110,9 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: background 0.3s;
             font-size: 16px;
+            margin-top: 10px;
         }
 
         button:hover {
@@ -82,13 +124,103 @@
         }
 
         .reset-filters:hover {
-            background: #512da8;
+            background: #3c1d6b;
+        }
+
+        /* Content Styles */
+        .content {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .search-box input:focus {
+            border-color: #512da8;
+            outline: none;
+        }
+
+        .results h2 {
+            margin-top: 0;
+            color: #512da8;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .results .count {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .scholarship-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .scholarship-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            transition: box-shadow 0.3s;
+        }
+
+        .scholarship-item:hover {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .scholarship-item strong {
+            color: #512da8;
+            font-size: 18px;
+        }
+
+        .scholarship-item .status {
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .scholarship-item .status.open {
+            color: green;
+        }
+
+        .scholarship-item .status.closed {
+            color: red;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            main {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
 <body>
     <header>
         <h1>Smart Scheme</h1>
+        <a href="/">Go to Home Page</a>
     </header>
     
     <main>
@@ -101,7 +233,8 @@
                         <select id="category" name="category">
                             <option value="">Any</option>
                             <option value="General">General</option>
-                            <option value="SC/ST">SC/ST</option>
+                            <option value="SC">SC</option>
+                            <option value="ST">ST</option>
                             <option value="OBC">OBC</option>
                             <option value="Minority">Minority</option>
                         </select>
@@ -109,8 +242,8 @@
                     <li>Gender
                         <select id="gender" name="gender">
                             <option value="">Any</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
                         </select>
                     </li>
                     <li>Income (Max Limit)
@@ -119,8 +252,8 @@
                     <li>Domicile
                         <select id="domicile" name="domicile">
                             <option value="">Any</option>
-                            <option value="kerala">Kerala</option>
-                            <option value="india">India</option>
+                            <option value="Kerala">Kerala</option>
+                            <option value="India">India</option>
                         </select>
                     </li>
                     <li>Min Qualification Score
@@ -145,8 +278,12 @@
         
         <div class="content">
             <div class="results">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search scholarships by name...">
+                </div>
                 <h2>Matching Scholarships</h2>
-                <ul id="scholarshipList">
+                <div class="count" id="scholarshipCount">Total Scholarships: <span id="countValue">0</span></div>
+                <ul class="scholarship-list" id="scholarshipList">
                     <!-- Results will be displayed here -->
                 </ul>
             </div>
@@ -154,51 +291,79 @@
     </main>
     
     <script>
-      document.getElementById("searchForm").addEventListener("submit", async function (event) {
-    event.preventDefault();
-
-    // Collect form data
-    const formData = new FormData(this);
-    let queryParams = new URLSearchParams();
-
-    // Append non-empty form values to query parameters
-    formData.forEach((value, key) => {
-        if (value.trim() !== "") {
-            queryParams.append(key, value);
+        // Function to fetch and display all scholarships initially
+        async function fetchAllScholarships() {
+            const response = await fetch('/all-scholarships');
+            const scholarships = await response.json();
+            displayScholarships(scholarships);
         }
-    });
 
-    console.log('Query Parameters:', queryParams.toString());
+        // Function to display scholarships
+        function displayScholarships(scholarships) {
+            const resultList = document.getElementById("scholarshipList");
+            const countValue = document.getElementById("countValue");
+            resultList.innerHTML = "";
 
-    // Fetch scholarships from the backend
-    const response = await fetch(`/search-scholarships?${queryParams.toString()}`);
-    const scholarships = await response.json();
+            if (scholarships.length > 0) {
+                scholarships.forEach(scholarship => {
+                    const li = document.createElement("li");
+                    li.className = "scholarship-item";
+                    li.innerHTML = `
+                        <strong>${scholarship.name}</strong>
+                        <p><strong>Income Limit:</strong> ${scholarship.income_limit ? `₹${scholarship.income_limit}` : 'Not specified'}</p>
+                        <p><strong>Category:</strong> ${scholarship.category}</p>
+                        <p><strong>Course Type:</strong> ${scholarship.course_type}</p>
+                        <div class="status ${scholarship.status}">Status: ${scholarship.status}</div>
+                    `;
+                    resultList.appendChild(li);
+                });
+            } else {
+                resultList.innerHTML = "<p>No matching scholarships found.</p>";
+            }
 
-    // Display results
-    const resultList = document.getElementById("scholarshipList");
-    resultList.innerHTML = "";
+            // Update the scholarship count
+            countValue.textContent = scholarships.length;
+        }
 
-    if (scholarships.length > 0) {
-        scholarships.forEach(scholarship => {
-            const li = document.createElement("li");
-            li.innerHTML = `
-                <strong>${scholarship.name}</strong> - 
-                Category: ${scholarship.category.join(", ")} - 
-                Income Limit: ${scholarship.income_limit} - 
-                Gender: ${scholarship.gender} - 
-                Course Type: ${scholarship.course_type.join(", ")}`;
-            resultList.appendChild(li);
+        // Function to handle form submission
+        document.getElementById("searchForm").addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            // Collect form data
+            const formData = new FormData(this);
+            let queryParams = new URLSearchParams();
+
+            // Append non-empty form values to query parameters
+            formData.forEach((value, key) => {
+                if (value.trim() !== "") {
+                    queryParams.append(key, value);
+                }
+            });
+
+            // Fetch scholarships from the backend
+            const response = await fetch(`/search-scholarships?${queryParams.toString()}`);
+            const scholarships = await response.json();
+            displayScholarships(scholarships);
         });
-    } else {
-        resultList.innerHTML = "<p>No matching scholarships found.</p>";
-    }
-});
 
-// Reset filters and clear results
-function resetFilters() {
-    document.getElementById("searchForm").reset();
-    document.getElementById("scholarshipList").innerHTML = "";
-}
+        // Function to handle dynamic search
+        document.getElementById("searchInput").addEventListener("input", async function (event) {
+            const searchTerm = event.target.value.trim();
+
+            // Fetch scholarships from the backend
+            const response = await fetch(`/search-scholarships?search=${searchTerm}`);
+            const scholarships = await response.json();
+            displayScholarships(scholarships);
+        });
+
+        // Function to reset filters and clear results
+        function resetFilters() {
+            document.getElementById("searchForm").reset();
+            fetchAllScholarships();
+        }
+
+        // Fetch all scholarships when the page loads
+        fetchAllScholarships();
     </script>
 </body>
 </html>

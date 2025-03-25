@@ -84,3 +84,27 @@ nav button:hover {
     font-size: 1em;
     color: #2C3E50;
 }
+
+.scholarship-box .status-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.scholarship-box .status {
+    font-weight: bold;
+}
+
+.scholarship-box .status.open {
+    color: green;
+}
+
+.scholarship-box .status.closed {
+    color: red;
+}
+
+.scholarship-box .open-on {
+    font-size: 0.9em;
+    color: #777;
+}

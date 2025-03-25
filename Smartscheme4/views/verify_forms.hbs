@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Forms - Smart Scheme</title>
+    <style>
+        /* Add your CSS styles here */
+        .application-list {
+            margin-top: 20px;
+        }
+        .application-item {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .application-item h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #512da8;
+        }
+        .application-item button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .application-item button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span>SMART</span> SCHEME</h1>
+        <nav>
+            <a href="/admin-panel">
+                <button>Back to Admin Panel</button>
+            </a>
+        </nav>
+    </header>
+
+   <main>
+    <h2>Verify Forms</h2>
+    <div class="application-list">
+        {{#each applications}}
+            <div class="application-item">
+                <h3>Application from {{this.userId}}</h3>
+                <div>
+                    <a href="/download-pdf/{{this._id}}">
+                        <button>Download PDF</button>
+                    </a>
+                    <button onclick="markAsCertified('{{this._id}}')">Mark as Certified</button>
+                </div>
+            </div>
+        {{else}}
+            <p>No pending applications.</p>
+        {{/each}}
+    </div>
+</main>
+
+    <script>
+        async function markAsCertified(applicationId) {
+            try {
+                const response = await fetch(`/mark-certified/${applicationId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    alert("Application marked as certified.");
+                    window.location.reload();
+                } else {
+                    alert("Failed to mark application as certified.");
+                }
+            } catch (error) {
+                console.error("Error marking application as certified:", error);
+                alert("An error occurred while marking the application as certified.");
+            }
+        }
+    </script>
+</body>
+</html>

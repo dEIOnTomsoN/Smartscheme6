@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Scholarship - Smart Scheme</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 25px;
+            background-color: #512da8;
+            color: white;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2em;
+            font-weight: 600;
+        }
+
+        header nav button {
+            background: #5c6bc0;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        header nav button:hover {
+            background: #4527a0;
+        }
+
+        /* Main Content */
+        main {
+            padding: 20px;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .scholarship-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .scholarship-item {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .scholarship-item h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #512da8;
+        }
+
+        .delete-button {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .modify-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-right: 10px;
+        }
+
+        .delete-button:hover {
+            background: #e60000;
+        }
+
+        .modify-button:hover {
+            background: #45a049;
+        }
+
+        .confirmation-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .confirmation-modal input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .confirmation-modal button {
+            background: #512da8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .confirmation-modal button:hover {
+            background: #4527a0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span>SMART</span> SCHEME</h1>
+        <nav>
+            <a href="/admin-panel">
+                <button>Back to Admin Panel</button>
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search scholarships by name...">
+        </div>
+
+        <div class="scholarship-list" id="scholarshipList">
+            {{#each scholarships}}
+                <div class="scholarship-item">
+                    <h3>{{this.name}} (ID: {{this.scholarshipID}})</h3>
+                    <div>
+                        <button class="modify-button" data-id="{{this.scholarshipID}}">Modify</button>
+                        <button class="delete-button" data-id="{{this.scholarshipID}}">Delete</button>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div class="confirmation-modal" id="confirmationModal">
+            <p>Type "CONFIRM" to delete this scholarship:</p>
+            <input type="text" id="confirmationInput" placeholder="Type CONFIRM">
+            <button id="confirmDelete">Delete</button>
+            <button id="cancelDelete">Cancel</button>
+        </div>
+    </main>
+
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const scholarshipList = document.getElementById('scholarshipList');
+
+        searchInput.addEventListener('input', async () => {
+            const searchTerm = searchInput.value.trim();
+            const response = await fetch(`/search-scholarships-admin?search=${searchTerm}`);
+            const scholarships = await response.json();
+
+            // Clear the current list
+            scholarshipList.innerHTML = '';
+
+            // Populate the list with filtered scholarships
+            scholarships.forEach(scholarship => {
+                const item = document.createElement('div');
+                item.className = 'scholarship-item';
+                item.innerHTML = `
+                    <h3>${scholarship.name} (ID: ${scholarship.scholarshipID})</h3>
+                    <div>
+                        <button class="modify-button" data-id="${scholarship.scholarshipID}">Modify</button>
+                        <button class="delete-button" data-id="${scholarship.scholarshipID}">Delete</button>
+                    </div>
+                `;
+                scholarshipList.appendChild(item);
+            });
+
+            // Reattach delete and modify button event listeners
+            attachDeleteListeners();
+            attachModifyListeners();
+        });
+
+        // Delete functionality
+        let selectedScholarshipID = null;
+        const confirmationModal = document.getElementById('confirmationModal');
+        const confirmationInput = document.getElementById('confirmationInput');
+        const confirmDeleteButton = document.getElementById('confirmDelete');
+        const cancelDeleteButton = document.getElementById('cancelDelete');
+
+        function attachDeleteListeners() {
+            document.querySelectorAll('.delete-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    selectedScholarshipID = button.getAttribute('data-id');
+                    confirmationModal.style.display = 'block';
+                });
+            });
+        }
+
+        function attachModifyListeners() {
+            document.querySelectorAll('.modify-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const scholarshipID = button.getAttribute('data-id');
+                    window.location.href = `/modify-scheme/${scholarshipID}`;
+                });
+            });
+        }
+
+        confirmDeleteButton.addEventListener('click', async () => {
+            if (confirmationInput.value === "CONFIRM") {
+                try {
+                    const response = await fetch('/delete-scholarship', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            scholarshipID: selectedScholarshipID,
+                            confirmation: confirmationInput.value,
+                        }),
+                    });
+
+                    if (response.ok) {
+                        // Reload the page to reflect the changes
+                        window.location.reload();
+                    } else {
+                        alert("Failed to delete the scholarship. Please try again.");
+                    }
+                } catch (error) {
+                    console.error("Error deleting scholarship:", error);
+                    alert("An error occurred while deleting the scholarship.");
+                }
+            } else {
+                alert("Please type 'CONFIRM' to delete the scholarship.");
+            }
+        });
+
+        cancelDeleteButton.addEventListener('click', () => {
+            confirmationModal.style.display = 'none';
+            confirmationInput.value = '';
+        });
+
+        // Attach delete and modify listeners on page load
+        attachDeleteListeners();
+        attachModifyListeners();
+    </script>
+</body>
+</html>

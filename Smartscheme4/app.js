@@ -21,11 +21,29 @@ app.use(session({
     cookie: { secure: false } // Set to true if using HTTPS
 }));
 
-// Register a Handlebars helper to check if a deadline has passed
+// Middleware to handle large file uploads
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+// Register Handlebars helpers
 hbs.registerHelper('isPast', function (deadline) {
+    if (!deadline) return false;
     const currentDate = new Date();
     const scholarshipDeadline = new Date(deadline);
     return scholarshipDeadline < currentDate;
+});
+
+hbs.registerHelper('calculateOpenDate', function (deadline) {
+    if (!deadline) return '';
+    const deadlineDate = new Date(deadline);
+    const openDate = new Date(deadlineDate);
+    openDate.setMonth(deadlineDate.getMonth() + 11);
+    return openDate.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+});
+
+// Register Handlebars helper
+hbs.registerHelper('isOwnScholarship', function (scholarshipID) {
+    return scholarshipID === 155362; // Assuming 155362 is the ID for "Prof Joseph Mudassery Scholarship"
 });
 
 // View engine setup
@@ -34,8 +52,6 @@ app.set('view engine', 'hbs');
 
 // Middleware
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true })); // Enable form data parsing
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); // Serve static files from the "public" folder
 

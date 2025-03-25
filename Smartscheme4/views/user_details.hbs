@@ -53,10 +53,7 @@
                 <div class="row">
                     <div class="column">
                         <label>Gender *</label>
-                        <select name="gender" required>
-                            <option value="Male" {{#if user.isMale}}selected{{/if}}>Male</option>
-                            <option value="Female" {{#if user.isFemale}}selected{{/if}}>Female</option>
-                        </select>
+                        <input type="text" name="gender" value="{{user.gender}}" readonly>
                     </div>
                     <div class="column">
                         <label>Date of Birth *</label>
@@ -67,38 +64,22 @@
                 <div class="row">
                     <div class="column">
                         <label>Category *</label>
-                        <select name="category" required>
-                            <option value="SC" {{#if user.isSC}}selected{{/if}}>SC</option>
-                            <option value="ST" {{#if user.isST}}selected{{/if}}>ST</option>
-                            <option value="OBC" {{#if user.isOBC}}selected{{/if}}>OBC</option>
-                            <option value="Minority" {{#if user.isMinority}}selected{{/if}}>Minority</option>
-                            <option value="General" {{#if user.isGeneral}}selected{{/if}}>General</option>
-                        </select>
+                        <input type="text" name="category" value="{{user.category}}" readonly>
                     </div>
                     <div class="column">
-                        <label>Domicile State *</label>
-                        <select name="domicile_state" id="domicile_state" required>
-                            <option value="" disabled selected>Select State</option>
-                            <option value="Kerala" {{#if user.isKerala}}selected{{/if}}>Kerala</option>
-                            <!-- Add more states as needed -->
-                        </select>
+                        <label>Caste *</label>
+                        <input type="text" name="caste" value="{{user.caste}}" readonly>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="column">
+                        <label>Domicile State *</label>
+                        <input type="text" name="domicile_state" value="{{user.domicile_state}}" required>
+                    </div>
+                    <div class="column">
                         <label>Religion *</label>
-                        <select name="religion" required>
-                            <option value="" disabled selected>Select Religion</option>
-                            <option value="Hindu" {{#if user.isHindu}}selected{{/if}}>Hindu</option>
-                            <option value="Muslim" {{#if user.isMuslim}}selected{{/if}}>Muslim</option>
-                            <option value="Christian" {{#if user.isChristian}}selected{{/if}}>Christian</option>
-                            <option value="Sikh" {{#if user.isSikh}}selected{{/if}}>Sikh</option>
-                            <option value="Buddhist" {{#if user.isBuddhist}}selected{{/if}}>Buddhist</option>
-                            <option value="Jain" {{#if user.isJain}}selected{{/if}}>Jain</option>
-                            <option value="Parsi" {{#if user.isParsi}}selected{{/if}}>Parsi</option>
-                            <option value="Other" {{#if user.isOtherReligion}}selected{{/if}}>Other</option>
-                        </select>
+                        <input type="text" name="religion" value="{{user.religion}}" readonly>
                     </div>
                 </div>
             </fieldset>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Details - Smart Scheme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+            color: #2C3E50;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #512da8;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            color: #f1f1f1;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        header h1 span {
+            color: #5c6bc0;
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        nav a {
+            background: #5c6bc0;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        nav a:hover {
+            background: #3a4470;
+            transform: scale(1.05);
+        }
+
+        /* Main Content */
+        main {
+            display: flex;
+            padding-top: 60px; /* To account for the fixed header */
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 200px;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border-right: 1px solid #B0BEC5;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            top: 60px; /* To account for the fixed header */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+            color: #512da8;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 4px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: #512da8;
+            color: #fff;
+        }
+
+        /* Content Section */
+        .content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 250px; /* To account for the fixed sidebar */
+            margin-top: 60px; /* To account for the fixed header */
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            border-bottom: 2px solid #512da8;
+            padding-bottom: 10px;
+            color: #512da8;
+            font-size: 1.5em;
+            margin-top: 0;
+        }
+
+        .section p {
+            font-size: 1em;
+            color: #444;
+            line-height: 1.8;
+        }
+
+        .section ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        .section ul li {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .apply-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .apply-button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Smart<span>Scheme</span></h1>
+        <nav>
+            <a href="/profile">Back to Dashboard</a>
+            <a href="/logout">Sign Out</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="sidebar">
+            <h3>Navigation</h3>
+            <a href="#details">Details</a>
+            <a href="#benefits">Benefits</a>
+            <a href="#eligibility">Eligibility</a>
+            <a href="#application-process">Application Process</a>
+            <a href="#documents-required">Documents Required</a>
+        </div>
+
+        <div class="content">
+            <div id="details" class="section">
+                <h2>Details</h2>
+                <p>{{scholarship.details}}</p>
+            </div>
+
+            <div id="benefits" class="section">
+                <h2>Benefits</h2>
+                <p>{{scholarship.benefits}}</p>
+            </div>
+
+            <div id="eligibility" class="section">
+                <h2>Eligibility</h2>
+                <p>{{scholarship.eligibility}}</p>
+            </div>
+
+            <div id="application-process" class="section">
+                <h2>Application Process</h2>
+                <p>{{scholarship.applicationProcess}}</p>
+                {{#if (isOwnScholarship scholarship.scholarshipID)}}
+                    <button class="apply-button" onclick="window.location.href='/apply-scholarship/{{scholarship.scholarshipID}}'">Apply Now</button>
+                {{else}}
+                    <button class="apply-button" onclick="window.location.href='https://www.google.com'">Apply Now</button>
+                {{/if}}
+            </div>
+
+            <div id="documents-required" class="section">
+                <h2>Documents Required</h2>
+                <p>{{scholarship.documentsRequired}}</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

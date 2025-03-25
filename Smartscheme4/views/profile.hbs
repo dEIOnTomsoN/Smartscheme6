@@ -20,19 +20,28 @@
     </header>
 
     <main>
-        <!-- Update the scholarships section in profile.hbs -->
         <div class="scholarships-container">
             <h2>Eligible Scholarships</h2>
             {{#if scholarships.length}}
                 <div class="scholarships-list">
                     {{#each scholarships}}
                         <div class="scholarship-box">
-                            <h3>{{this.name}}</h3>
-                            <p><strong>Deadline:</strong> {{this.deadline}}</p>
-                            {{#if (isPast this.deadline)}}
-                                <p style="color: red;"><strong>Status:</strong> Closed</p>
-                            {{else}}
-                                <p style="color: green;"><strong>Status:</strong> Open</p>
+                            <h3><a href="/scholarship/details/{{this.scholarshipID}}">{{this.name}}</a></h3>
+                            <p><strong>Income Limit:</strong> {{#if this.income_limit}}₹{{this.income_limit}}{{else}}Not specified{{/if}}</p>
+                            <p><strong>Category:</strong> {{this.category}}</p>
+                            <p><strong>Course Type:</strong> {{this.course_type}}</p>
+                            <div class="status-line">
+                                <p class="status {{#if (isPast this.deadline)}}closed{{else}}open{{/if}}">
+                                    <strong>Status:</strong> {{#if this.deadline}}{{#if (isPast this.deadline)}}Closed{{else}}Open{{/if}}{{else}}Open (Can be applied anytime){{/if}}
+                                </p>
+                                {{#if (isPast this.deadline)}}
+                                    <p class="open-on">
+                                        Opens on: {{calculateOpenDate this.deadline}}
+                                    </p>
+                                {{/if}}
+                            </div>
+                            {{#if this.deadline}}
+                                <p><strong>Deadline:</strong> {{this.deadline}}</p>
                             {{/if}}
                         </div>
                     {{/each}}
