@@ -3,8 +3,8 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #ECEFF1;
-    color: #2C3E50;
+    background-color: #ECEFF1; /* Light gray background */
+    color: #2C3E50; /* Dark text color */
 }
 
 /* Header */
@@ -12,49 +12,54 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #1F2A38;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px 25px;
+    background: linear-gradient(to right, #2595bd, #3e659b);
+    color: white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
+header h1 img.logo {
+    height:90px; /* Adjust the height of the logo as needed */
+    width: auto; /* Maintain aspect ratio */
+    margin-right: 5px; /* Add spacing if needed */
+}
 header h1 {
     font-size: 1.8em;
-    color: #E0E0E0;
+    color: #E0E0E0; /* Light text for contrast */
     font-weight: bold;
 }
 
-header h1 span {
-    color: #00ACC1;
-}
 
-nav button {
-    background: #3A526D;
+
+header nav button {
+    background: #2596be;
     color: white;
     border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
+    border-radius: 10px;
+    padding: 8px 26px;
     font-size: 1em;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s ease;
+    margin-bottom: 10px; /* Adds space under the buttons */
 }
 
-nav button:hover {
-    background: #2A3D55;
+header nav button:hover {
+    background: linear-gradient(to right, #3db17d, #2596be);
 }
 
 /* Scholarships Container */
 .scholarships-container {
-    max-width: 100%; /* Ensure the container takes full width */
+    max-width: 100%; /* Full width container */
     margin: 20px auto;
     padding: 20px;
-    background-color: #FFFFFF;
+    background-color: #FFFFFF; /* White background */
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .scholarships-container h2 {
     margin-top: 0;
-    color: #1F2A38;
+    color: #2596be; /* Blue heading */
 }
 
 /* Scholarships List */
@@ -62,27 +67,27 @@ nav button:hover {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    width: 100%; /* Ensure the list takes full width */
+    width: 100%; /* Full width list */
 }
 
 .scholarship-box {
-    width: 100%; /* Ensure the box takes full width */
+    width: 100%; /* Full width box */
     padding: 15px;
-    background-color: #F5F5F5;
+    background-color: #F5F5F5; /* Light gray background */
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box; /* Ensure padding is included in the width */
+    box-sizing: border-box; /* Include padding in width */
 }
 
 .scholarship-box h3 {
     margin: 0 0 10px 0;
-    color: #1F2A38;
+    color: #2596be; /* Blue title */
 }
 
 .scholarship-box p {
     margin: 5px 0;
     font-size: 1em;
-    color: #2C3E50;
+    color: #2C3E50; /* Dark text */
 }
 
 .scholarship-box .status-line {
@@ -97,14 +102,17 @@ nav button:hover {
 }
 
 .scholarship-box .status.open {
-    color: green;
+    color: #3db17d; /* Green for open status */
 }
 
 .scholarship-box .status.closed {
-    color: red;
+    color: red; /* Red for closed status */
 }
 
 .scholarship-box .open-on {
     font-size: 0.9em;
-    color: #777;
+    color: #777; /* Subtle gray text */
+}
+header nav a {
+    text-decoration: none; /* Removes underline */
 }

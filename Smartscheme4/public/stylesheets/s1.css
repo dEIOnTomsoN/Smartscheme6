@@ -4,28 +4,35 @@
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    background: linear-gradient(to right, #e0f7f2, #f0faff); /* Light gradient inspired by the theme */
     color: #333;
 }
 
-/* Header */
+/* Logo Styling */
+header h1 img.logo {
+    height:90px; /* Adjust the height of the logo as needed */
+    width: auto; /* Maintain aspect ratio */
+    margin-right: 5px; /* Add spacing if needed */
+}
+
+/* Header Adjustments */
 header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 15px 25px;
-    background-color: #512da8;
+    background: #2596be; /* Primary blue */
     color: white;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
-    font-size: 2em;
-    font-weight: 600;
+    font-size: 0; /* Remove any default font size */
+    display: flex; /* Ensure proper alignment of the logo */
+    align-items: center;
 }
-
 header nav button {
-    background: #5c6bc0;
+    background: #1c6f8d; /* Primary blue */
     color: white;
     border: none;
     border-radius: 8px;
@@ -36,13 +43,17 @@ header nav button {
 }
 
 header nav button:hover {
-    background: #4527a0;
+    background: #3db17d; /* Switch to green on hover */
 }
-
+header nav a {
+    text-decoration: none; /* Removes underline */
+}
 /* Steps Section */
 .steps h2 {
     font-size: 2.5em;
-    color: #512da8;
+    color: #3db17d; /* Primary blue */
+    text-align: center;
+    
     margin-bottom: 25px;
     font-weight: 700;
 }
@@ -65,7 +76,16 @@ header nav button:hover {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 300px;
 }
+/* Remove underline from links */
+.step-card-link {
+    text-decoration: none; /* Removes underline */
+    color: inherit; /* Ensures the text color remains consistent */
+    display: block; /* Makes the entire card clickable */
+}
 
+.step-card-link:hover {
+    text-decoration: none; /* Prevents underline on hover */
+}
 .step-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
@@ -83,7 +103,7 @@ header nav button:hover {
 
 .step-card h3 {
     font-size: 1.3em;
-    color: #512da8;
+    color: #3db17d; /* Primary blue */
     font-weight: 600;
     margin-bottom: 12px;
 }
@@ -110,7 +130,7 @@ header nav button:hover {
 
 .faq-header h2 {
     font-size: 2em;
-    color: #512da8;
+    color: #3db17d; /* Primary green */
     font-weight: 700;
 }
 
@@ -134,7 +154,7 @@ header nav button:hover {
 }
 
 .faq-content ul li:hover {
-    background-color: #512da8;
+    background: linear-gradient(to right, #2596be, #3db17d); /* Gradient for hover effect */
     color: #fff;
 }
 
@@ -143,10 +163,9 @@ footer {
     text-align: center;
     margin: 30px;
     font-size: 0.85em;
-    color: #bbb;
-    background-color: #512da8;
-    padding: 15px;
     color: #f1f1f1;
+    background: linear-gradient(to right, #2596be, #3db17d); /* Gradient for footer */
+    padding: 15px;
     border-radius: 10px;
 }
 

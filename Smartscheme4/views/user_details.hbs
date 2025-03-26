@@ -8,22 +8,12 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-    <script>
-        function toggleStudentDetails() {
-            var studentStatus = document.getElementById("is_student").value;
-            var studentDetails = document.getElementById("student_details");
-
-            if (studentStatus === "Yes") {
-                studentDetails.style.display = "block";
-            } else {
-                studentDetails.style.display = "none";
-            }
-        }
-    </script>
 </head>
 <body>
     <header>
-        <h1><span>SMART</span> SCHEME</h1>
+        <h1>
+        <img src="/images/logo.png" alt="SMART SCHEME Logo" class="logo">
+    </h1>
         <nav>
             <a href="/profile">
                 <button>Back to Profile</button>
@@ -33,7 +23,6 @@
             </a>
         </nav>
     </header>
-
     <main>
         <form action="/submit-user-details" method="post">
             <!-- Personal Details Section -->
@@ -49,37 +38,36 @@
                         <input type="text" name="last_name" value="{{user.last_name}}" required>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="column">
                         <label>Gender *</label>
-                        <input type="text" name="gender" value="{{user.gender}}" readonly>
+                        <input type="text" name="gender" value="{{user.gender}}">
                     </div>
                     <div class="column">
                         <label>Date of Birth *</label>
                         <input type="date" name="date_of_birth" value="{{user.date_of_birth}}" required>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="column">
                         <label>Category *</label>
-                        <input type="text" name="category" value="{{user.category}}" readonly>
+                        <input type="text" name="category" value="{{user.category}}">
                     </div>
                     <div class="column">
                         <label>Caste *</label>
-                        <input type="text" name="caste" value="{{user.caste}}" readonly>
+                        <input type="text" name="caste" value="{{user.caste}}">
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="column">
                         <label>Domicile State *</label>
-                        <input type="text" name="domicile_state" value="{{user.domicile_state}}" required>
+                        <select id="domicile_state" name="domicile_state" required>
+                            <option value="" disabled selected>Select State</option>
+                        </select>
                     </div>
                     <div class="column">
                         <label>Religion *</label>
-                        <input type="text" name="religion" value="{{user.religion}}" readonly>
+                        <input type="text" name="religion" value="{{user.religion}}">
                     </div>
                 </div>
             </fieldset>
@@ -93,11 +81,10 @@
                         <textarea name="address" required>{{user.address}}</textarea>
                     </div>
                 </div>
-                
                 <div class="row">
                     <div class="column">
                         <label>Email *</label>
-                        <input type="email" name="email" value="{{user.email}}" readonly>
+                        <input type="email" name="email" value="{{user.email}}">
                     </div>
                     <div class="column">
                         <label>Phone Number *</label>
@@ -106,7 +93,7 @@
                 </div>
             </fieldset>
 
-            <!-- Student Status -->
+            <!-- Education Status -->
             <fieldset>
                 <legend>Education Status</legend>
                 <div class="row">
@@ -135,7 +122,6 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="column">
                         <label>Admission Type *</label>
@@ -147,7 +133,6 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="column">
                         <label>Academic Year</label>
@@ -158,7 +143,6 @@
                         <input type="number" name="percentage_or_marks" value="{{user.percentage_or_marks}}" step="0.01">
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="column">
                         <label>Attendance Percentage</label>
@@ -169,7 +153,6 @@
                         <input type="number" name="qualification_exam_score" value="{{user.qualification_exam_score}}" step="0.01">
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="column">
                         <label>Institute Type</label>
@@ -200,7 +183,6 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="column">
                         <label>Family Details (If Female & Single Girl Child)</label>
@@ -221,14 +203,5 @@
             </div>
         </form>
     </main>
-
-    <script>
-        $(document).ready(function() {
-            $('#domicile_state').select2({
-                placeholder: "Select State",
-                allowClear: true
-            });
-        });
-    </script>
 </body>
 </html>

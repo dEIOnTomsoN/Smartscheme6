@@ -3,18 +3,45 @@ body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    background: linear-gradient(to right, #e8f7fa, #d8effc);
     color: #2C3E50;
 }
 
 /* Header */
 header {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 20px;
-    background-color: #512da8;
+    background: linear-gradient(to right, #2595bd, #3e659b);
     color: white;
-    font-size: 1.5em;
     font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+header h1 span {
+    color: #ffffff;
+}
+
+header nav button {
+    background: #2596be;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 26px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-bottom: 10px; /* Adds space under the buttons */
+}
+
+header nav button:hover {
+    background: #3db17d;
 }
 
 /* Main Form */
@@ -37,7 +64,7 @@ fieldset {
 legend {
     font-size: 1.3em;
     font-weight: bold;
-    color: #512da8;
+    color: #3db17d;
 }
 
 .row {
@@ -54,6 +81,7 @@ label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
+    color: #2C3E50;
 }
 
 input, select, textarea {
@@ -61,6 +89,12 @@ input, select, textarea {
     padding: 8px;
     border: 1px solid #B0BEC5;
     border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #3db17d;
+    outline: none;
 }
 
 input[type="checkbox"] {
@@ -72,27 +106,23 @@ button {
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #5c6bc0;
+    background: #3db17d;
     color: white;
     border: none;
     border-radius: 4px;
     font-size: 1.1em;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s ease;
 }
 
 button:hover {
-    background-color: #3a4470;
+    background: linear-gradient(to right, #3db17d, #2596be);
 }
-
-/* Select2 Dropdown Styling */
-.select2-container--default .select2-selection--single {
-    border: 1px solid #B0BEC5;
-    border-radius: 4px;
-    height: 38px;
-    padding: 5px;
+header nav a {
+    text-decoration: none; /* Removes underline */
 }
-
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 36px;
+header h1 img.logo {
+    height:90px; /* Adjust the height of the logo as needed */
+    width: auto; /* Maintain aspect ratio */
+    margin-right: 5px; /* Add spacing if needed */
 }

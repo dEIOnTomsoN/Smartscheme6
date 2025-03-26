@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #ECEFF1;
+    background-color: #e8f7fa; /* Light gradient-inspired background */
     color: #2C3E50;
 }
 
@@ -12,23 +12,24 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #1F2A38;
+    padding: 20px;
+    background: linear-gradient(to right, #2595bd, #3e659b);
+    color: white;
+    font-weight: bold;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
+    margin: 0;
     font-size: 1.8em;
-    color: #E0E0E0;
-    font-weight: bold;
 }
-
-header h1 span {
-    color: #00ACC1;
+header h1 img.logo {
+    height:90px; /* Adjust the height of the logo as needed */
+    width: auto; /* Maintain aspect ratio */
+    margin-right: 5px; /* Add spacing if needed */
 }
-
 nav button {
-    background: #3A526D;
+    background: #2596be; /* Primary blue */
     color: white;
     border: none;
     border-radius: 4px;
@@ -39,7 +40,7 @@ nav button {
 }
 
 nav button:hover {
-    background: #2A3D55;
+    background: #3db17d; /* Switch to green on hover */
 }
 
 /* Profile Container */
@@ -54,12 +55,14 @@ nav button:hover {
 
 .profile-container h2 {
     margin-top: 0;
-    color: #1F2A38;
+    color: #2596be; /* Blue heading */
     text-align: center;
     font-size: 2em;
     margin-bottom: 20px;
 }
-
+header nav a {
+    text-decoration: none; /* Removes underline */
+}
 /* Profile Sections */
 .profile-section {
     margin-bottom: 20px;
@@ -71,9 +74,9 @@ nav button:hover {
 
 .profile-section h3 {
     margin-top: 0;
-    color: #1F2A38;
+    color: #2596be; /* Blue section title */
     font-size: 1.5em;
-    border-bottom: 2px solid #00ACC1;
+    border-bottom: 2px solid #3db17d; /* Green underline */
     padding-bottom: 10px;
     margin-bottom: 15px;
 }
@@ -106,7 +109,7 @@ nav button:hover {
 }
 
 .actions button {
-    background: #00ACC1;
+    background: #3db17d; /* Primary green */
     color: white;
     border: none;
     border-radius: 4px;
@@ -117,5 +120,5 @@ nav button:hover {
 }
 
 .actions button:hover {
-    background: #0097A7;
+    background: #2596be; /* Switch to blue on hover */
 }
